@@ -300,7 +300,7 @@ namespace TimeCards
 
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
         }
     }
 }
