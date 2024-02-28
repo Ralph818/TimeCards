@@ -22,7 +22,7 @@ namespace TimeCards
         [TestInitialize]
         public void RunBeforeEveryTest()
         {
-            // chromeOptions.AddArguments("headless");
+            chromeOptions.AddArguments("headless");
             driver = GetChromeDriver(chromeOptions);
             driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
             driver.Manage().Window.Maximize();
@@ -262,7 +262,7 @@ namespace TimeCards
             driver.FindElement(By.XPath("//button[@data-pika-day = '1']")).Click();
             Thread.Sleep(500);
             driver.FindElement(By.XPath("//button[@class = 'appmagic-datepicker-ok-button']")).Click();
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
 
             // Validate there's a record for 1/1/2024
             if (chromeOptions.Arguments.Contains("headless") == true)
