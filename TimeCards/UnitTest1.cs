@@ -21,7 +21,9 @@ namespace TimeCards
         [TestInitialize]
         public void RunBeforeEveryTest()
         {
-            driver = GetChromeDriver();
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("headless");
+            driver = GetChromeDriver(chromeOptions);
             driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/e70ee1e0-2c33-45ee-acb1-85bfb825920b?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=72a821b5-e952-4576-a22b-3378b56ccd43&sourcetime=1708024421683");
             driver.Manage().Window.Maximize();
             Thread.Sleep(5000);
@@ -48,10 +50,10 @@ namespace TimeCards
             driver.Quit();
         }
 
-        private ChromeDriver GetChromeDriver()
+        private ChromeDriver GetChromeDriver(ChromeOptions chromeOptions)
         {
             var outputDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            return new ChromeDriver(outputDirectory);
+            return new ChromeDriver(outputDirectory,chromeOptions);
         }
 
         private void HighlightElementUsingJavaScript(By by)
