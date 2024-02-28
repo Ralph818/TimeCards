@@ -19,6 +19,7 @@
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
 	<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+	<PublishChromeDriver>true</PublishChromeDriver>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
