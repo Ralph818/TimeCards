@@ -22,9 +22,9 @@ namespace TimeCards
         [TestInitialize]
         public void RunBeforeEveryTest()
         {
-            chromeOptions.AddArguments("headless");
+            // chromeOptions.AddArguments("headless");
             driver = GetChromeDriver(chromeOptions);
-            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/e70ee1e0-2c33-45ee-acb1-85bfb825920b?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=72a821b5-e952-4576-a22b-3378b56ccd43&sourcetime=1708024421683");
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
             driver.Manage().Window.Maximize();
             Thread.Sleep(5000);
             Email.SendKeys("rafael.villalvazo@grupo-giga.com");
@@ -260,6 +260,7 @@ namespace TimeCards
 
             } while (driver.FindElement(By.ClassName("pika-label-month")).Text != "enero" && driver.FindElement(By.ClassName("pika-label-month")).Text != "January");
             driver.FindElement(By.XPath("//button[@data-pika-day = '1']")).Click();
+            Thread.Sleep(500);
             driver.FindElement(By.XPath("//button[@class = 'appmagic-datepicker-ok-button']")).Click();
             Thread.Sleep(500);
 
@@ -302,7 +303,7 @@ namespace TimeCards
             // Click Edit on the first record
             driver.FindElement(By.XPath("//div[@data-control-name = 'Button2_7']")).Click();
             Thread.Sleep(500);
-            IWebElement Notes = driver.FindElement(By.XPath("//input[@appmagic-control = 'DataCardValue7textbox']"));
+            IWebElement Notes = driver.FindElement(By.XPath("//input[@appmagic-control = 'DataCardValue8textbox']"));
             Thread.Sleep(500);
             Notes.Clear();
             Thread.Sleep(300);
