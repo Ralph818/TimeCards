@@ -12,7 +12,8 @@ namespace TimeCards
     [TestClass]
     public class UnitTest1
     {
-
+        public ChromeOptions chromeOptions = new ChromeOptions();
+        
         public ChromeDriver driver;
 
         public IWebElement Email => driver.FindElement(By.Name("loginfmt"));
@@ -21,7 +22,6 @@ namespace TimeCards
         [TestInitialize]
         public void RunBeforeEveryTest()
         {
-            var chromeOptions = new ChromeOptions();
             chromeOptions.AddArguments("headless");
             driver = GetChromeDriver(chromeOptions);
             driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/e70ee1e0-2c33-45ee-acb1-85bfb825920b?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=72a821b5-e952-4576-a22b-3378b56ccd43&sourcetime=1708024421683");
@@ -131,7 +131,16 @@ namespace TimeCards
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(3000);
             IWebElement error = driver.FindElement(By.XPath("//*[@id = 'MessageBar18']/span/span"));
-            Assert.AreEqual(error.Text, "El valor debe tener como máximo 255 caracteres de longitud");
+            if (chromeOptions.Arguments.Contains("headless") == true)
+            {
+                Assert.AreEqual(error.Text, "Value must be at most 255 characters in length");
+
+            }
+            else
+            {
+                Assert.AreEqual(error.Text, "El valor debe tener como máximo 255 caracteres de longitud");
+
+            }
             Thread.Sleep(1000);
         }
 
@@ -255,8 +264,15 @@ namespace TimeCards
             Thread.Sleep(500);
 
             // Validate there's a record for 1/1/2024
-            Assert.IsTrue(driver.FindElement(By.XPath("//div[contains (text(), '01/01/2024')]")).Displayed);
+            if (chromeOptions.Arguments.Contains("headless") == true)
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//div[contains (text(), '1/1/2024')]")).Displayed);
+            }
+            else
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//div[contains (text(), '01/01/2024')]")).Displayed);
 
+            }
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(1000);
