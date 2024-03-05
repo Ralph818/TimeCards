@@ -33,16 +33,8 @@ namespace TimeCards
             Password.SendKeys("@Giga0124");
             driver.FindElement(By.Id("idSIButton9")).Click();
             Thread.Sleep(8000);
-            if (chromeOptions.Arguments.Contains("headless") == true)
-            {
-
-            }
-            else
-            {
-                driver.FindElement(By.Id("idSIButton9")).Click();
-                Thread.Sleep(8000);
-
-            }
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            Thread.Sleep(8000);
         }
 
         [TestCleanup]
