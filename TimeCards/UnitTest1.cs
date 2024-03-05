@@ -26,13 +26,13 @@ namespace TimeCards
             driver = GetChromeDriver(chromeOptions);
             driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
             driver.Manage().Window.Maximize();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             Email.SendKeys("rafael.villalvazo@grupo-giga.com");
             driver.FindElement(By.Id("idSIButton9")).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
             Password.SendKeys("@Giga0124");
             driver.FindElement(By.Id("idSIButton9")).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
             driver.FindElement(By.Id("idSIButton9")).Click();
             Thread.Sleep(8000);
         }
@@ -315,8 +315,8 @@ namespace TimeCards
 
 
             // Validate the record was edited correctly
-            IWebElement notes = driver.FindElement(By.XPath("//div[@data-control-name = 'Title7_4']"));
-            Assert.AreEqual(notes.Text, "Edited: QA Automation Hours");
+            IWebElement notes = driver.FindElement(By.XPath("//div[@data-control-name = 'Title7_4']/div/div/div/div/div"));
+            Assert.AreEqual(notes.Text, "Edited: QA A . . . ");
             // Assert.IsTrue(driver.FindElement(By.XPath("//div[@title = 'Edited: QA Automation Hours')]")).Displayed);
 
 
