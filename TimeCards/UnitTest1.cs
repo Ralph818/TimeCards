@@ -100,8 +100,8 @@ namespace TimeCards
             driver.FindElement(By.XPath("//div[@data-control-name = 'Button2_2']")).Click();
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
-            Thread.Sleep(1000);
-            IWebElement error = driver.FindElement(By.XPath("//span[contains(text(),'Please enter a numeric value in the hours field')]"));
+            Thread.Sleep(1000);            
+            IWebElement error = driver.FindElement(By.XPath("//span[contains(text(),'Please enter an hour')]"));
             Assert.IsTrue(error.Displayed);
             Thread.Sleep(1000);
         }
@@ -309,13 +309,16 @@ namespace TimeCards
             Thread.Sleep(300);
             Notes.SendKeys("Edited: QA Automation Hours");
             Thread.Sleep(500);
-            driver.FindElement(By.XPath("//div[@data-control-name = 'BtnUpdate']")).Click();
+          driver.FindElement(By.XPath("//div[@data-control-name = 'BtnUpdate']")).Click();
             Thread.Sleep(2000);
 
 
 
             // Validate the record was edited correctly
-            Assert.IsTrue(driver.FindElement(By.XPath("//div[contains (text(), 'Edited: QA Automation Hours')]")).Displayed);
+            IWebElement notes = driver.FindElement(By.XPath("//div[@data-control-name = 'Title7_4']"));
+            Assert.AreEqual(notes.Text, "Edited: QA Automation Hours");
+            // Assert.IsTrue(driver.FindElement(By.XPath("//div[@title = 'Edited: QA Automation Hours')]")).Displayed);
+
 
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
