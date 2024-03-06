@@ -144,13 +144,11 @@ namespace TimeCards
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
-                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
                 _logger.Info("Power Apps page was loaded");
             }
             catch (Exception ex)
             {
                 _logger.Info("Power Apps text did not appear");
-                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
                 TakeScreenshotForTestFailure();
             }
 
@@ -208,13 +206,11 @@ namespace TimeCards
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
-                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
                 _logger.Info("Power Apps page was loaded");
             }
             catch (Exception ex)
             {
                 _logger.Info("Power Apps text did not appear");
-                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
                 TakeScreenshotForTestFailure();
             }
 
@@ -279,13 +275,11 @@ namespace TimeCards
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
-                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
                 _logger.Info("Power Apps page was loaded");
             }
             catch (Exception ex)
             {
                 _logger.Info("Power Apps text did not appear");
-                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
                 TakeScreenshotForTestFailure();
             }
 
@@ -348,13 +342,11 @@ namespace TimeCards
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
-                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
                 _logger.Info("Power Apps page was loaded");
             }
             catch (Exception ex)
             {
                 _logger.Info("Power Apps text did not appear");
-                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
                 TakeScreenshotForTestFailure();
             }
 
@@ -423,13 +415,11 @@ namespace TimeCards
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
-                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
                 _logger.Info("Power Apps page was loaded");
             }
             catch (Exception ex)
             {
                 _logger.Info("Power Apps text did not appear");
-                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
                 TakeScreenshotForTestFailure();
             }
 
@@ -512,13 +502,11 @@ namespace TimeCards
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
-                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
                 _logger.Info("Power Apps page was loaded");
             }
             catch (Exception ex)
             {
                 _logger.Info("Power Apps text did not appear");
-                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
                 TakeScreenshotForTestFailure();
             }
 
@@ -549,7 +537,7 @@ namespace TimeCards
             Thread.Sleep(300);
             Notes.SendKeys("Edited: QA Automation Hours");
             Thread.Sleep(500);
-          driver.FindElement(By.XPath("//div[@data-control-name = 'BtnUpdate']")).Click();
+            driver.FindElement(By.XPath("//div[@data-control-name = 'BtnUpdate']")).Click();
             Thread.Sleep(2000);
 
 
