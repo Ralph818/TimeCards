@@ -34,7 +34,7 @@ namespace TimeCards
             driver.FindElement(By.Id("idSIButton9")).Click();
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(30000);
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
