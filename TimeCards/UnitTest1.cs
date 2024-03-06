@@ -139,7 +139,6 @@ namespace TimeCards
             _logger.Info("Entered password and next");
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
             _logger.Info("Clicked on Si Mantener sesión iniciada");
             Thread.Sleep(8000);
             try
@@ -160,7 +159,7 @@ namespace TimeCards
             Reporter.LogPassingTestStepForBugLogger("Entré a validar Hours");
             _logger.Info("Entré a ValidarHours");
             
-            // driver.SwitchTo().Frame("fullscreen-app-host");
+            driver.SwitchTo().Frame("fullscreen-app-host");
             
             //Click on the relojito           
             driver.FindElement(By.XPath("//div[@data-control-name = 'link3']")).Click();
@@ -181,6 +180,7 @@ namespace TimeCards
             Thread.Sleep(1000);            
             IWebElement error = driver.FindElement(By.XPath("//span[contains(text(),'Please enter an hour')]"));
             Assert.IsTrue(error.Displayed);
+            Reporter.LogPassingTestStepForBugLogger("Mensaje 'Please enter an hour' se mostró correctamente");
             Thread.Sleep(1000);
         }
 
@@ -203,7 +203,6 @@ namespace TimeCards
             _logger.Info("Entered password and next");
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
             _logger.Info("Clicked on Si Mantener sesión iniciada");
             Thread.Sleep(8000);
             try
@@ -251,6 +250,8 @@ namespace TimeCards
                 Assert.AreEqual(error.Text, "El valor debe tener como máximo 255 caracteres de longitud");
 
             }
+            Reporter.LogPassingTestStepForBugLogger("Se mostró correctamente el mensaje de máximo 255 caracteres");
+
             Thread.Sleep(1000);
         }
 
@@ -273,7 +274,6 @@ namespace TimeCards
             _logger.Info("Entered password and next");
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
             _logger.Info("Clicked on Si Mantener sesión iniciada");
             Thread.Sleep(8000);
             try
@@ -319,6 +319,7 @@ namespace TimeCards
             {
                 // Assert.AreEqual(e.Message, "no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id = 'MessageBar18']/span/span\"}\r\n  (Session info: chrome=121.0.6167.185); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception");               
             }
+            Reporter.LogPassingTestStepForBugLogger("Se insertó correctament el registro, y sin errores");
             Thread.Sleep(1000);
         }
 
@@ -342,7 +343,6 @@ namespace TimeCards
             _logger.Info("Entered password and next");
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
             _logger.Info("Clicked on Si Mantener sesión iniciada");
             Thread.Sleep(8000);
             try
@@ -394,7 +394,7 @@ namespace TimeCards
             {
                 // Assert.AreEqual(e.Message, "no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id = 'MessageBar18']/span/span\"}\r\n  (Session info: chrome=121.0.6167.185); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception");
             }
-
+            Reporter.LogPassingTestStepForBugLogger("Se eliminó correctamente el registro");
             Thread.Sleep(1000);
         }
 
@@ -418,7 +418,6 @@ namespace TimeCards
             _logger.Info("Entered password and next");
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
             _logger.Info("Clicked on Si Mantener sesión iniciada");
             Thread.Sleep(8000);
             try
@@ -482,6 +481,7 @@ namespace TimeCards
                 Assert.IsTrue(driver.FindElement(By.XPath("//div[contains (text(), '01/01/2024')]")).Displayed);
 
             }
+            Reporter.LogPassingTestStepForBugLogger("Se realizó la consulta desde el 1 de enero, correctamente");
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(1000);
@@ -507,7 +507,6 @@ namespace TimeCards
             _logger.Info("Entered password and next");
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
             _logger.Info("Clicked on Si Mantener sesión iniciada");
             Thread.Sleep(8000);
             try
@@ -560,6 +559,7 @@ namespace TimeCards
             Assert.AreEqual(notes.Text, "Edited: QA A . . . ");
             // Assert.IsTrue(driver.FindElement(By.XPath("//div[@title = 'Edited: QA Automation Hours')]")).Displayed);
 
+            Reporter.LogPassingTestStepForBugLogger("Registro actualizado correctamente");
 
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
