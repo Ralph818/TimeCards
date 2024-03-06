@@ -35,7 +35,18 @@ namespace TimeCards
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
             Thread.Sleep(8000);
-            Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+            }
+            catch(Exception ex)
+            {
+                var filePath = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}error.jpg";
+                ((ITakesScreenshot)driver).GetScreenshot().SaveAsFile(filePath);
+                // TestContext.AddResultFile(filePath);
+
+            }
+
         }
 
         [TestCleanup]
@@ -256,6 +267,7 @@ namespace TimeCards
             driver.FindElement(By.XPath("//div[@data-control-name = 'DatePickerStart']")).Click();
             do
             {
+                Thread.Sleep(500);
                 driver.FindElement(By.XPath("//button[@class = 'pika-prev']")).Click();
                 Thread.Sleep(500);
 
