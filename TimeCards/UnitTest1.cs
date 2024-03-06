@@ -34,35 +34,7 @@ namespace TimeCards
             chromeOptions.AddArguments("headless");
             driver = GetChromeDriver(chromeOptions);
 
-            ScreenshotTaker = new ScreenshotTaker(driver, TestContext);
-
-
-            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
-            driver.Manage().Window.Maximize();
-            _logger.Info("Opened and Maximized Chrome");
-            Thread.Sleep(8000);
-            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
-            driver.FindElement(By.Id("idSIButton9")).Click();
-            _logger.Info("Entered Username");
-            Thread.Sleep(8000);
-            Password.SendKeys("@Giga0124");
-            driver.FindElement(By.Id("idSIButton9")).Click();
-            _logger.Info("Entered password and next");
-            Thread.Sleep(8000);
-            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            _logger.Info("Clicked on Si Mantener sesión iniciada");
-            Thread.Sleep(8000);
-            try
-            {
-                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
-                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
-                _logger.Info("Power Apps page was loaded");
-            }
-            catch(Exception ex)
-            {
-                _logger.Info("Power Apps text did not appear");
-                TakeScreenshotForTestFailure();
-            }
+            ScreenshotTaker = new ScreenshotTaker(driver, TestContext);       
 
         }
 
@@ -154,6 +126,37 @@ namespace TimeCards
         [Description("Validar que salga un mensaje de error al dejar vacías las horas")]
         public void ValidarHours()
         {
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
+            Thread.Sleep(8000);
+            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
+            Thread.Sleep(8000);
+            Password.SendKeys("@Giga0124");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(8000);
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
+                _logger.Info("Power Apps page was loaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.Info("Power Apps text did not appear");
+                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
+                TakeScreenshotForTestFailure();
+            }
+
+
+
             Reporter.LogPassingTestStepForBugLogger("Entré a validar Hours");
             _logger.Info("Entré a ValidarHours");
             driver.SwitchTo().Frame("fullscreen-app-host");
@@ -186,6 +189,38 @@ namespace TimeCards
         [Description("Validar que salga un mensaje de error al introducir más de 255 caracteres en las notas")]
         public void ValidarNotes()
         {
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
+            Thread.Sleep(8000);
+            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
+            Thread.Sleep(8000);
+            Password.SendKeys("@Giga0124");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(8000);
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
+                _logger.Info("Power Apps page was loaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.Info("Power Apps text did not appear");
+                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
+                TakeScreenshotForTestFailure();
+            }
+
+
+            Reporter.LogPassingTestStepForBugLogger("Entré a validar Notes");
+
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
@@ -224,6 +259,38 @@ namespace TimeCards
         [Description("Insertar un registro de carga de horas")]
         public void AltaRegistro()
         {
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
+            Thread.Sleep(8000);
+            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
+            Thread.Sleep(8000);
+            Password.SendKeys("@Giga0124");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(8000);
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
+                _logger.Info("Power Apps page was loaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.Info("Power Apps text did not appear");
+                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
+                TakeScreenshotForTestFailure();
+            }
+
+
+            Reporter.LogPassingTestStepForBugLogger("Entré a Alta Registro");
+
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
@@ -261,6 +328,39 @@ namespace TimeCards
         [Description("Eliminar un registro de carga de horas")]
         public void EliminarRegistro()
         {
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
+            Thread.Sleep(8000);
+            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
+            Thread.Sleep(8000);
+            Password.SendKeys("@Giga0124");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(8000);
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
+                _logger.Info("Power Apps page was loaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.Info("Power Apps text did not appear");
+                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
+                TakeScreenshotForTestFailure();
+            }
+
+
+
+            Reporter.LogPassingTestStepForBugLogger("Entré a Eliminar Registro");
+
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
@@ -304,6 +404,38 @@ namespace TimeCards
         [Description("Realizar una consulta desde el 1 de enero")]
         public void VerHistoricoHoras()
         {
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
+            Thread.Sleep(8000);
+            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
+            Thread.Sleep(8000);
+            Password.SendKeys("@Giga0124");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(8000);
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
+                _logger.Info("Power Apps page was loaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.Info("Power Apps text did not appear");
+                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
+                TakeScreenshotForTestFailure();
+            }
+
+
+            Reporter.LogPassingTestStepForBugLogger("Entré a Ver Histórico Horas");
+
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
@@ -361,6 +493,39 @@ namespace TimeCards
         [Description("Editar un registro")]
         public void EditarRegistro()
         {
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
+            Thread.Sleep(8000);
+            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
+            Thread.Sleep(8000);
+            Password.SendKeys("@Giga0124");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            Reporter.LogPassingTestStepForBugLogger("Click en sí para manterner la sesión iniciada");
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(8000);
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
+                _logger.Info("Power Apps page was loaded");
+            }
+            catch (Exception ex)
+            {
+                _logger.Info("Power Apps text did not appear");
+                Reporter.LogPassingTestStepForBugLogger("Nunca cargó la página de power apps");
+                TakeScreenshotForTestFailure();
+            }
+
+
+
+            Reporter.LogPassingTestStepForBugLogger("Entré a Editar Registro");
+
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
