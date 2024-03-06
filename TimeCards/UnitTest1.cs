@@ -159,7 +159,8 @@ namespace TimeCards
 
             Reporter.LogPassingTestStepForBugLogger("Entré a validar Hours");
             _logger.Info("Entré a ValidarHours");
-            driver.SwitchTo().Frame("fullscreen-app-host");
+            
+            // driver.SwitchTo().Frame("fullscreen-app-host");
             
             //Click on the relojito           
             driver.FindElement(By.XPath("//div[@data-control-name = 'link3']")).Click();
