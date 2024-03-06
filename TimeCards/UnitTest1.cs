@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NLog;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Threading;
 
 namespace TimeCards
@@ -12,6 +12,12 @@ namespace TimeCards
     [TestClass]
     public class UnitTest1
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
+        public TestContext TestContext { get; set; }
+
+        private ScreenshotTaker ScreenshotTaker { get; set; }   
+
         public ChromeOptions chromeOptions = new ChromeOptions();
         
         public ChromeDriver driver;
@@ -22,29 +28,40 @@ namespace TimeCards
         [TestInitialize]
         public void RunBeforeEveryTest()
         {
+            _logger.Debug("****** TEST STARTED");
+            Reporter.AddTestCaseMetadataToHtmlReport(TestContext);
+
             chromeOptions.AddArguments("headless");
             driver = GetChromeDriver(chromeOptions);
+
+            ScreenshotTaker = new ScreenshotTaker(driver, TestContext);
+
+
             driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
             driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
             Thread.Sleep(8000);
             Email.SendKeys("rafael.villalvazo@grupo-giga.com");
             driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
             Thread.Sleep(8000);
             Password.SendKeys("@Giga0124");
             driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
-            Thread.Sleep(30000);
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(8000);
             try
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//span[contains(text(),'Power Apps')]")).Displayed);
+                Reporter.LogPassingTestStepForBugLogger("Cargó la página de power apps");
+                _logger.Info("Power Apps page was loaded");
             }
             catch(Exception ex)
             {
-                var filePath = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}error.jpg";
-                ((ITakesScreenshot)driver).GetScreenshot().SaveAsFile(filePath);
-                // TestContext.AddResultFile(filePath);
-
+                _logger.Info("Power Apps text did not appear");
+                TakeScreenshotForTestFailure();
             }
 
         }
@@ -52,6 +69,27 @@ namespace TimeCards
         [TestCleanup]
         public void RunAfterEveryTest()
         {
+            _logger.Debug(GetType().FullName + " started a test finalize");
+
+            try
+            {
+                TakeScreenshotForTestFailure();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Source);
+                _logger.Error(e.StackTrace);
+                _logger.Error(e.InnerException);
+                _logger.Error(e.Message);
+            }
+            finally
+            {
+                // StopBrowser();
+                _logger.Debug(TestContext.TestName);
+                _logger.Debug("*************************************** TEST STOPPED");
+                _logger.Debug("*************************************** TEST STOPPED");
+            }
+
             driver.SwitchTo().DefaultContent();
             IJavaScriptExecutor JavaScriptExecutor = driver as IJavaScriptExecutor;
             JavaScriptExecutor.ExecuteScript("alert('Test Finished')");
@@ -60,6 +98,28 @@ namespace TimeCards
             
             driver.Close();
             driver.Quit();
+        }
+
+        private void TakeScreenshotForTestFailure()
+        {
+            if (ScreenshotTaker != null)
+            {
+                ScreenshotTaker.CreateScreenshotIfTestFailed();
+                Reporter.ReportTestOutcome(ScreenshotTaker.ScreenshotFilePath);
+            }
+            else
+            {
+                Reporter.ReportTestOutcome("");
+            }
+        }
+
+        private void StopBrowser()
+        {
+            if (driver == null)
+                return;
+            driver.Quit();
+            driver = null;
+            _logger.Trace("Browser stopped successfully.");
         }
 
         private ChromeDriver GetChromeDriver(ChromeOptions chromeOptions)
@@ -94,6 +154,8 @@ namespace TimeCards
         [Description("Validar que salga un mensaje de error al dejar vacías las horas")]
         public void ValidarHours()
         {
+            Reporter.LogPassingTestStepForBugLogger("Entré a validar Hours");
+            _logger.Info("Entré a ValidarHours");
             driver.SwitchTo().Frame("fullscreen-app-host");
             
             //Click on the relojito           

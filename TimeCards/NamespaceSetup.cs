@@ -1,0 +1,15 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+
+namespace TimeCards
+{
+    [TestClass]
+    public static class NamespaceSetup
+    {
+        [AssemblyInitialize]
+        public static void ExecuteForCreatingReportsNamespace(TestContext testContext)
+        {
+            Reporter.StartReporter();
+        }
+    }
+}
