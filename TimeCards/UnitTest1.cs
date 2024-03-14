@@ -13,17 +13,15 @@ namespace TimeCards
     public class UnitTest1
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
-
         public TestContext TestContext { get; set; }
-
         private ScreenshotTaker ScreenshotTaker { get; set; }   
-
         public ChromeOptions chromeOptions = new ChromeOptions();
-        
         public ChromeDriver driver;
-
         public IWebElement Email => driver.FindElement(By.Name("loginfmt"));
         public IWebElement Password => driver.FindElement(By.Name("passwd"));
+
+
+
 
         [TestInitialize]
         public void RunBeforeEveryTest()
@@ -31,7 +29,7 @@ namespace TimeCards
             _logger.Debug("****** TEST STARTED");
             Reporter.AddTestCaseMetadataToHtmlReport(TestContext);
 
-            chromeOptions.AddArguments("headless");
+            // chromeOptions.AddArguments("headless");
             driver = GetChromeDriver(chromeOptions);
 
             ScreenshotTaker = new ScreenshotTaker(driver, TestContext);       
@@ -126,7 +124,7 @@ namespace TimeCards
         [Description("Validar que salga un mensaje de error al dejar vacías las horas")]
         public void ValidarHours()
         {
-            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1710282269378&source=portal");
             driver.Manage().Window.Maximize();
             _logger.Info("Opened and Maximized Chrome");
             Thread.Sleep(8000);
@@ -160,7 +158,7 @@ namespace TimeCards
             driver.SwitchTo().Frame("fullscreen-app-host");
             
             //Click on the relojito           
-            driver.FindElement(By.XPath("//div[@data-control-name = 'link3']")).Click();
+            driver.FindElement(By.XPath("//div[@data-control-name = 'link1']")).Click();
 
             // Wait for page rendering
             Thread.Sleep(5000);
@@ -220,7 +218,7 @@ namespace TimeCards
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
-            driver.FindElement(By.XPath("//div[@data-control-name = 'link3']")).Click();
+            driver.FindElement(By.XPath("//div[@data-control-name = 'link1']")).Click();
 
             // Wait for page rendering
             Thread.Sleep(5000);
@@ -289,7 +287,7 @@ namespace TimeCards
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
-            driver.FindElement(By.XPath("//div[@data-control-name = 'link3']")).Click();
+            driver.FindElement(By.XPath("//div[@data-control-name = 'link1']")).Click();
 
             // Wait for page rendering
             Thread.Sleep(5000);
@@ -357,7 +355,7 @@ namespace TimeCards
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
-            driver.FindElement(By.XPath("//div[@data-control-name = 'link3']")).Click();
+            driver.FindElement(By.XPath("//div[@data-control-name = 'link1']")).Click();
 
             // Wait for page rendering
             Thread.Sleep(5000);
@@ -429,7 +427,7 @@ namespace TimeCards
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
-            driver.FindElement(By.XPath("//div[@data-control-name = 'link3_1']")).Click();
+            driver.FindElement(By.XPath("//div[@data-control-name = 'link2']")).Click();
 
             // Wait for page rendering
             Thread.Sleep(5000);
@@ -517,7 +515,7 @@ namespace TimeCards
             driver.SwitchTo().Frame("fullscreen-app-host");
 
             //Click on the relojito           
-            driver.FindElement(By.XPath("//div[@data-control-name = 'link3_1']")).Click();
+            driver.FindElement(By.XPath("//div[@data-control-name = 'link2']")).Click();
 
             // Wait for page rendering
             Thread.Sleep(5000);
@@ -531,7 +529,7 @@ namespace TimeCards
             // Click Edit on the first record
             driver.FindElement(By.XPath("//div[@data-control-name = 'Button2_7']")).Click();
             Thread.Sleep(500);
-            IWebElement Notes = driver.FindElement(By.XPath("//input[@appmagic-control = 'DataCardValue8textbox']"));
+            IWebElement Notes = driver.FindElement(By.XPath("//input[@appmagic-control = 'DataCardValue7textbox']"));
             Thread.Sleep(500);
             Notes.Clear();
             Thread.Sleep(300);
@@ -551,7 +549,7 @@ namespace TimeCards
 
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
-            Thread.Sleep(8000);
+            Thread.Sleep(3000);
         }
     }
 }
