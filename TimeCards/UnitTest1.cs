@@ -2,6 +2,7 @@
 using NLog;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.IO;
 using System.Reflection;
@@ -29,7 +30,7 @@ namespace TimeCards
             _logger.Debug("****** TEST STARTED");
             Reporter.AddTestCaseMetadataToHtmlReport(TestContext);
 
-            // chromeOptions.AddArguments("headless");
+            chromeOptions.AddArguments("headless");
             driver = GetChromeDriver(chromeOptions);
 
             ScreenshotTaker = new ScreenshotTaker(driver, TestContext);       
@@ -96,26 +97,6 @@ namespace TimeCards
         {
             var outputDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             return new ChromeDriver(outputDirectory,chromeOptions);
-        }
-
-        private void HighlightElementUsingJavaScript(By by)
-        {
-            int duration = 2;
-            var element = driver.FindElement(by);
-            var originalStyle = element.GetAttribute("style");
-            IJavaScriptExecutor JavaScriptExecutor = driver as IJavaScriptExecutor;
-            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",
-                element,
-                "style",
-                "border: 7px solid yellow; birder-style: dashed;");
-
-            if (duration <= 0) return;
-
-            Thread.Sleep(TimeSpan.FromSeconds(duration));
-            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",
-                element,
-                "style",
-                originalStyle);
         }
 
 
@@ -550,6 +531,70 @@ namespace TimeCards
             Thread.Sleep(1000);
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(3000);
+        }
+
+
+
+        [TestMethod]
+        [TestCategory("Histórico de horas")]
+        [Description("Validar Tooltips")]
+        public void ValidarTooltips()
+        {
+            driver.Navigate().GoToUrl("https://apps.powerapps.com/play/e/9fd5302d-a4da-e8fe-af21-930adda2e30e/a/3be5954f-d753-46e2-b2aa-bc38b9fb66d5?tenantId=5c4fae17-a009-4196-85fa-9b956adbd1ea&source=AppSharedV3&hint=c0ee3102-3e42-441e-bdde-2b1b2a0ef820&sourcetime=1708706229940");
+            driver.Manage().Window.Maximize();
+            _logger.Info("Opened and Maximized Chrome");
+            Thread.Sleep(8000);
+            Email.SendKeys("rafael.villalvazo@grupo-giga.com");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered Username");
+            Thread.Sleep(8000);
+            Password.SendKeys("@Giga0124");
+            driver.FindElement(By.Id("idSIButton9")).Click();
+            _logger.Info("Entered password and next");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//*[@data-report-event = 'Signin_Submit' and @data-report-trigger = 'click' and @data-report-value = 'Submit']")).Click();
+            _logger.Info("Clicked on Si Mantener sesión iniciada");
+            Thread.Sleep(5000);
+
+            Reporter.LogPassingTestStepForBugLogger("Entré a Validar Tooltips");
+
+            driver.SwitchTo().Frame("fullscreen-app-host");
+
+            //Click on the relojito           
+            driver.FindElement(By.XPath("//div[@data-control-name = 'link2']")).Click();
+
+            // Wait for page rendering
+            Thread.Sleep(5000);
+
+            // Creating actions
+            var actions = new Actions(driver);
+
+
+            // Hover over notes field
+            IWebElement notes = driver.FindElement(By.XPath("//div[@data-control-name = 'Title7_4']/div/div/div/div"));
+            actions.MoveToElement(notes).Build().Perform();
+            string title = notes.GetAttribute("title");
+            Assert.AreEqual(title, "pruebas automatizadas Lynk");
+            Reporter.LogPassingTestStepForBugLogger("Tooltip en Notes funciona");
+            Thread.Sleep(2000);
+
+
+            // Validar tooltips en cronómetro (Time Report)
+            IWebElement timeReportClock = driver.FindElement(By.XPath("//div[@data-control-name = 'link1']/div/div/div/div"));            
+            actions.MoveToElement(timeReportClock).Build().Perform();
+            string titleTimeReport = timeReportClock.GetAttribute("title");
+            Assert.AreEqual(titleTimeReport, "Time Report");
+            Reporter.LogPassingTestStepForBugLogger("Tooltip en Time Report Clock funciona");
+            Thread.Sleep(2000);
+
+            // Validar tooltips en los relojito de arena (Historic Report)
+            IWebElement historicReportClock = driver.FindElement(By.XPath("//div[@data-control-name = 'link2']/div/div/div/div"));
+            actions.MoveToElement(historicReportClock).Build().Perform();
+            string titleHistoricReport = historicReportClock.GetAttribute("title");
+            Assert.AreEqual(titleHistoricReport, "Historic Report");
+            Reporter.LogPassingTestStepForBugLogger("Tooltip en Historic Report Clock funciona");
+            Thread.Sleep(2000);
+
         }
     }
 }
