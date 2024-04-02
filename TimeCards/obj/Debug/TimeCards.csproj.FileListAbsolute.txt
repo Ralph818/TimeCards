@@ -93,3 +93,4 @@ C:\Users\YamiletGIGA\source\repos\TimeCards\TimeCards\bin\Debug\ru\Microsoft.Cod
 C:\Users\YamiletGIGA\source\repos\TimeCards\TimeCards\bin\Debug\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\YamiletGIGA\source\repos\TimeCards\TimeCards\bin\Debug\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\YamiletGIGA\source\repos\TimeCards\TimeCards\bin\Debug\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\YamiletGIGA\source\repos\TimeCards\TimeCards\bin\Debug\SeleniumExtras.WaitHelpers.dll
